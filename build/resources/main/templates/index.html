@@ -1,0 +1,195 @@
+
+<head th:replace="layout/head.html :: head"></head>
+
+<div th:replace="layout/header.html :: header"></div>
+
+<body>
+<div class="hero page-inner overlay">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">타임캡슐</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="features-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-lg-3"  data-aos="fade-up" data-aos-delay="300">
+                <div class="box-feature">
+                    <span class="flaticon-house"></span>
+                    <h3 class="mb-3">나만의 타임캡슐 제작</h3>
+                    <p>나만의 타임캡슐을 만들 수 있습니다.</p>
+                    <p><a th:href="@{/capsule/create}" class="learn-more">더 알아보기</a></p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3"  data-aos="fade-up" data-aos-delay="500">
+                <div class="box-feature">
+                    <span class="flaticon-building"></span>
+                    <h3 class="mb-3">제작중인 타임캡슐</h3>
+                    <p>현재 제작중인 타임캡슐입니다.</p>
+                    <p><a th:href="@{capsule/capsuleList/ing}" class="learn-more">더 알아보기</a></p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3"  data-aos="fade-up" data-aos-delay="400">
+                <div class="box-feature">
+                    <span class="flaticon-house-3"></span>
+                    <h3 class="mb-3">타임캡슐 묻기</h3>
+                    <p>묻힌 타임캡슐을 확인할 수 있습니다.</p>
+                    <p><a th:href="@{capsule/capsuleList/done}" class="learn-more">더 알아보기</a></p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3"  data-aos="fade-up" data-aos-delay="600">
+                <div class="box-feature">
+                    <span class="flaticon-house-1"></span>
+                    <h3 class="mb-3">마이 페이지</h3>
+                    <p>나의 타임캡슐을 볼 수 있습니다.</p>
+                    <p><a th:href="@{user/myPage}" class="learn-more">더 알아보기</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="section sec-testimonials">
+    <div class="container">
+        <div class="row mb-5 align-items-center">
+            <div class="col-md-6">
+                <h2 class="font-weight-bold heading text-primary mb-4 mb-md-0">후기</h2>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <div id="testimonial-nav">
+                    <span class="prev" data-controls="prev">이전</span>
+
+                    <span class="next" data-controls="next">다음</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+
+            </div>
+        </div>
+        <div class="testimonial-slider-wrap">
+            <div class="testimonial-slider">
+                <div class="item">
+                    <div class="testimonial">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4440/4440953.png" alt="Image" class="img-fluid rounded-circle w-25 mb-4">
+                        <div class="rate">
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                        </div>
+                        <h3 class="h5 text-primary mb-4">제주도에 사는 오민규 씨</h3>
+                        <blockquote>
+                            <p>&ldquo;어렸을 때, 초등학교에서 행사로 진행하던 타임캡슐이 생각났습니다. 이 사이트를 통해서 잠시나마 동심으로 돌아간 듯한 기분이었습니다. 감사합니다.&rdquo;</p>
+                        </blockquote>
+                        <p class="text-black-50">회사원, 27세</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="testimonial">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1864/1864509.png" alt="Image" class="img-fluid rounded-circle w-25 mb-4">
+                        <div class="rate">
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                        </div>
+                        <h3 class="h5 text-primary mb-4">노원구에 사는 황인태 씨</h3>
+                        <blockquote>
+                            <p>&ldquo;요즘 부쩍 힘들어하는 여자친구를 위해 뭘 해줄까 고민하다가 타임캡슐을 만들어봤어요. 꾸준히 일기 쓰듯이 만들어서 200일 기념으로 보여줬더니 너무 좋아했어요. 비용도 들지않고 오로지 내가 만드는 타임캡슐이라 더 의미가 있습니다!&rdquo;</p>
+                        </blockquote>
+                        <p class="text-black-50">공무원, 27세</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="testimonial">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3048/3048116.png" alt="Image" class="img-fluid rounded-circle w-25 mb-4">
+                        <div class="rate">
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                        </div>
+                        <h3 class="h5 text-primary mb-4">인천에 사는 송주환 씨</h3>
+                        <blockquote>
+                            <p>&ldquo;취업준비를 하면서 미래의 나에게 편지 쓰듯이 만들었습니다. 5년 뒤에 읽었을 때, 어떤 생각이 들지 궁금해요. 나를 돌아볼 수 있는 계기가 될 것 같아요.&rdquo;</p>
+                        </blockquote>
+                        <p class="text-black-50">취업준비생, 24세</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="testimonial">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3048/3048182.png" alt="Image" class="img-fluid rounded-circle w-25 mb-4">
+                        <div class="rate">
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                            <span class="icon-star text-warning"></span>
+                        </div>
+                        <h3 class="h5 text-primary mb-4">대구에 사는 강민지 씨</h3>
+                        <blockquote>
+                            <p>&ldquo;미래의 아가에게 좋은 추억이 될 것 같아서 만들고있습니다. 현재 제 배속에 있는 아가가 태어나서 글을 읽을 수 있을 때 쯤에 같이 보면 너무 특별한 추억이 될 것 같아요. 12개월동안의 희노애락을 작성하고있어요. 몇 년 후에 다시 후기 남기도록 할게요!&rdquo;</p>
+                        </blockquote>
+                        <p class="text-black-50">테니스 선수, 31세</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section section-4 bg-light">
+    <div class="container">
+        <div class="row section-counter mt-5">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="counter-wrap mb-5 mb-lg-0">
+                    <span class="number"><span class="countup text-primary">3298</span></span>
+                    <span class="caption text-black-50"># 현재 제작 중인 타임캡슐</span>
+                </div>
+            </div>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="counter-wrap mb-5 mb-lg-0">
+                    <span class="number"><span class="countup text-primary">2181</span></span>
+                    <span class="caption text-black-50"># 현재 묻혀있는 타임캡슐</span>
+                </div>
+            </div>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="500">
+                <div class="counter-wrap mb-5 mb-lg-0">
+                    <span class="number"><span class="countup text-primary">9316</span></span>
+                    <span class="caption text-black-50"># 완료된 타임캡슐</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="row justify-content-center footer-cta" data-aos="fade-up">
+        <div class="col-lg-7 mx-auto text-center">
+            <h2 class="mb-4 ">특별한 순간을 담은 타임캡슐을 제작해보세요.</h2>
+            <p><a th:href="@{/capsule/create}" class="btn btn-primary text-white py-3 px-4">타입캡슐 제작하러 가기</a></p>
+        </div> <!-- /.col-lg-7 -->
+    </div> <!-- /.row -->
+</div>
+
+<div th:replace="layout/footer.html :: footer"></div>
+</body>
+</html>
