@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -14,7 +16,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void create(UserDto userDto){
+    public void create(UserDto userDto) {
         SiteUser user = new SiteUser();
         user.setName(userDto.getName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
@@ -23,4 +25,14 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public String findNameByEmail(String email) {
+        List<SiteUser> userList = userRepository.findAll();
+        for (SiteUser user : userList) {
+            if (user.getEmail().equals(email)) {
+                return user.getName();
+            }
+        }
+
+        return "등록된 ID가 없습니다.";
+    }
 }
