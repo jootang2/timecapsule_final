@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
 
     public void create(UserDto userDto) {
         SiteUser user = new SiteUser();
@@ -34,5 +36,27 @@ public class UserService {
         }
 
         return "등록된 ID가 없습니다.";
+    }
+
+    public String resetUserPassword(String userName, String email) {
+        List<SiteUser> userList = userRepository.findAll();
+        for (SiteUser user : userList) {
+            if(user.getName().equals(userName) && user.getEmail().equals(email)){
+                //랜덤 문자열 생성
+                String alphaNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                int alphaNumLength = alphaNum.length();
+                Random random = new Random();
+                StringBuffer code = new StringBuffer();
+                for (int i = 0; i < 20; i++) {
+                    code.append(alphaNum.charAt(random.nextInt(alphaNumLength)));
+                }
+                //
+                user.setPassword(passwordEncoder.encode(code.toString()));
+                userRepository.save(user);
+                mailService.sendPasswordEmail(email, code.toString());
+                return "가입하신 email로 임시비밀번호를 발송했습니다.";
+            }
+        }
+        return "등록된 계정이 없습니다.";
     }
 }

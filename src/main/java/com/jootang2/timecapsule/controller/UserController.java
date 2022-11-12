@@ -67,4 +67,16 @@ public class UserController {
         model.addAttribute("result", result);
         return "user/findNameResult";
     }
+
+    @GetMapping("/findPassword")
+    public String findPassword() {
+        return "user/findPassword";
+    }
+
+    @PostMapping("/findPassword")
+    public String findPassword(@RequestParam String email, @RequestParam String userName, Model model) {
+        String result = userService.resetUserPassword(userName, email);
+        model.addAttribute("result", result);
+        return "user/findPasswordResult";
+    }
 }
