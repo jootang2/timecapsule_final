@@ -14,13 +14,13 @@ public class SiteUser extends BaseEntity{
     private Long id;
 
     @Column(unique = true, name="USER_NAME")
-    private String userName;
+    private String name;
 
     @Column(name="USER_PASSWORD")
-    private String userPassword;
+    private String password;
 
     @Column(unique = true, name="USER_EMAIL")
-    private String userEmail;
+    private String email;
 
     @Column(name = "NUMBER_OF_CAPSULE")
     private int numberOfCapsule;
