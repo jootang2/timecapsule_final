@@ -10,7 +10,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -47,4 +50,36 @@ public class CapsuleService {
         return capsuleRepository.findById(capsuleId).orElseThrow(null);
     }
 
+    public void storageCapsule(Long capsuleId, CapsuleDto capsuleDto) {
+        //랜덤 문자열 생성
+        String alphaNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        int alphaNumLength = alphaNum.length();
+        Random random = new Random();
+        StringBuffer code = new StringBuffer();
+        for (int i = 0; i < 20; i++) {
+            code.append(alphaNum.charAt(random.nextInt(alphaNumLength)));
+        }
+        //
+        Date now = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+        String formattedNow = formatter.format(now);
+        String reservationDate = capsuleDto.getCapsuleReservationDate().split("-")[0] +
+                "년 " +
+                capsuleDto.getCapsuleReservationDate().split("-")[1] +
+                "월 " +
+                capsuleDto.getCapsuleReservationDate().split("-")[2] +
+                "일 " +
+                capsuleDto.getCapsuleReservationTime().split(":")[0] +
+                "시 " +
+                capsuleDto.getCapsuleReservationTime().split(":")[1] +
+                "분";
+        Capsule capsule = findById(capsuleId);
+        capsule.setCapsuleStatus("storage");
+        capsule.setCapsuleStorageDate(formattedNow);
+        capsule.setCapsuleReservationDate(reservationDate);
+        capsule.setCapsuleToUserMail(capsuleDto.getCapsuleToUserMail());
+        capsule.setCapsuleMessage(capsuleDto.getCapsuleMessage());
+        capsule.setCapsuleAccessKey(code.toString());
+        capsuleRepository.save(capsule);
+    }
 }

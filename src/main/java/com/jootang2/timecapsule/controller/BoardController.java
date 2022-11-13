@@ -139,4 +139,18 @@ public class BoardController {
         return "redirect:/%d/board/list".formatted(capsuleId);
     }
 
+    @GetMapping("/storage")
+    public String storage(@PathVariable Long capsuleId, Model model) {
+        Capsule capsule = capsuleService.findById(capsuleId);
+        model.addAttribute("capsule", capsule);
+        return "storage";
+    }
+
+    @PostMapping("/storage")
+    public String storage(@PathVariable Long capsuleId, CapsuleDto capsuleDto) {
+        Capsule capsule = capsuleService.findById(capsuleId);
+        capsuleService.storageCapsule(capsuleId, capsuleDto);
+        return "index";
+    }
+
 }
