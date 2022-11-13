@@ -1,0 +1,97 @@
+<head th:replace="layout/head.html :: head"></head>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+<div th:replace="layout/header.html :: header"></div>
+
+<body>
+
+<div class="hero page-inner overlay">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up" th:text="${capsule.capsuleTitle}"></h1>
+
+                <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item "><a href="index.html">타임캡슐</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">타임캡슐 내부</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <div class="container">
+        <h1>글 쓰기</h1>
+        <form name="form" th:action="@{/{capsuleId}/board/create (capsuleId = ${capsule.id}) }" method="post">
+            <select class="form-select-sm mb-3" id="boardCategory" name="boardCategory">
+                <option value="">카테고리</option>
+                <option th:each="category : ${T(com.jootang2.timecapsule.enumType.BoardCategory).values()}"
+                        th:value="${category}"
+                        th:text="${category}">
+                </option>
+            </select>
+            <input class="form-control col-lg-6 mb-3" type="text" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요.">
+            <div id="editor" class="mb-3"></div>
+            <div class="mb-3">
+                <a class="btn btn-outline-primary btn-sm mb-3" href="/map/myPlace" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">위치 등록</a>
+                <a class="btn btn-outline-primary btn-sm mb-3" href="/map/myStoragePlace" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">저장된 장소 보기</a>
+            </div>
+            <hr>
+            <input type="hidden" class="editorContent" name="boardContent">
+            <input id="placeX" name="placeX" type="hidden">
+            <input id="placeY" name="placeY" type="hidden">
+            <div>
+            </div>
+            <button id="submitButton" class="btn btn-outline-primary btn-sm mb-3" type="button" th:onclick="validSubmit()">글 등록</button>
+        </form>
+    </div>
+</div> <!-- /.untree_co-section -->
+
+<div th:replace="layout/footer.html :: footer"></div>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script>
+
+
+    const Editor = toastui.Editor;
+
+    const editor = new Editor({
+        el: document.querySelector('#editor'),
+        height: '500px',
+        initialEditType: 'markdown',
+        previewStyle: 'vertical',
+        hooks: {
+            addImageBlobHook: (image, callback) => {
+                const formData = new FormData();
+                formData.append('image', image);
+
+                fetch('/change/url', {
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(response => response.text())
+                    .then(url => callback(url, "대체 텍스트"));
+            }
+        }
+    });
+
+    editor.getMarkdown();
+
+    function validSubmit() {
+        if($("#boardCategory").val().length==0){ alert("카테고리를 선택해주세요."); $("#boardCategory").focus(); return false; }
+        if($("#boardTitle").val().length==0){ alert("제목을 입력해주세요."); $("#boardTitle").focus(); return false; }
+        else{
+            document.querySelector(".editorContent").value = editor.getMarkdown();
+            document.forms["form"].submit();
+        }
+
+    }
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,81 @@
+<head th:replace="layout/head.html :: head" xmlns="http://www.w3.org/1999/html"></head>
+
+<div th:replace="layout/header.html :: header"></div>
+
+<body>
+
+<div class="hero page-inner overlay">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up" th:text="${capsule.capsuleTitle}"></h1>
+
+                <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item "><a href="index.html">타임캡슐</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">타임캡슐 내부</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <div class="container">
+        <iframe name="hframe4" style="display: none;"></iframe>
+        <div style="display: flex; justify-content: end">
+            <form id="form" th:action="@{/capsule/delete/{capsuleId} (capsuleId = ${capsule.getId})}" method="post">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="storage()">캡슐 묻기</button>
+                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete()"> 캡슐 삭제하기 </button>
+            </form>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>분류</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>날짜</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div id="boardList" th:each="board : ${boardList}">
+                <tr>
+                    <div th:if="${capsule.id == board.getCapsule().id}">
+                        <td th:text="${board.boardCategory}"></td>
+
+                        <td>
+                            <a th:href="@{/{capsuleId}/board/detail/{boardId} (capsuleId = ${capsule.getId},boardId = ${board.getId})} "
+                               th:text="${board.boardTitle}"></a></td>
+                        <td th:text="${board.getUser().name}"></td>
+                        <td th:text="${#strings.substring(board.createdDate, 0, 10) + ' ' + #strings.substring(board.createdDate, 11, 16)}"></td>
+                    </div>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+        <a class="btn btn-success btn-sm" th:href="@{/{capsuleId}/board/create (capsuleId = ${capsule.getId})}"> 글 쓰기 </a>
+    </div>
+</div> <!-- /.untree_co-section -->
+<div th:replace="layout/footer.html :: footer"></div>
+<script>
+    function storage() {
+        window.open(
+            "storage",
+            "Storage",
+            "width=800, height=600, top=50, left=50"
+        );
+    }
+
+    function confirmDelete(){
+        if(confirm('삭제하시면 복구할 수 없습니다. \n 정말로 삭제하시겠습니까?')){
+            document.getElementById('form').submit();
+        } else{
+        }
+    }
+</script>
+</body>
+</html>

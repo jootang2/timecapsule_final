@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/user/findName}" th:object="${userDto}" method="post">
+        <input type="text" name="email" class="input input-bordered">
+        </div>
+        <button class="btn btn-success">ID 찾기</button>
+        </div>
+    </form>
+</body>
+</html>

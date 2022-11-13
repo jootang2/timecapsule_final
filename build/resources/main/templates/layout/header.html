@@ -1,0 +1,51 @@
+
+
+    <div th:fragment="header" id="header">
+    <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close">
+                <span class="icofont-close js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div>
+
+    <nav class="site-nav">
+        <div class="container">
+            <div class="menu-bg-wrap">
+                <div class="site-navigation">
+                    <a href="/" class="logo m-0 float-start">타임캡슐</a>
+
+                    <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
+                        <li><a href="/">홈</a></li>
+                        <li class="has-children">
+                            <a href="/">타임캡슐</a>
+                            <ul class="dropdown">
+                                <li><a href="/capsule/create">타임캡슐 만들기</a></li>
+                                <li><a href="/capsule/capsuleList/ing">기록 중인 타임캡슐</a></li>
+                                <li><a href="/capsule/capsuleList/done">묻혀있는 타임캡슐</a></li>
+                                <li class="has-children">
+                                    <a href="#">Dropdown</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Sub Menu One</a></li>
+                                        <li><a href="#">Sub Menu Two</a></li>
+                                        <li><a href="#">Sub Menu Three</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="/notice">공지사항</a></li>
+                        <li><a sec:authorize="isAnonymous()" href="/user/join">회원가입</a></li>
+                        <li><a sec:authorize="isAnonymous()" href="/user/login">로그인</a></li>
+                        <li><a sec:authorize="isAuthenticated()" href="/user/myPage">마이페이지</a></li>
+                        <li><a sec:authorize="isAuthenticated()" href="/user/logout">로그아웃</a></li>
+                    </ul>
+
+                    <a href="#" class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
+                        <span></span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
