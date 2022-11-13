@@ -59,4 +59,8 @@ public class UserService {
         }
         return "등록된 계정이 없습니다.";
     }
+
+    public SiteUser findByName(String userName) {
+        return userRepository.findByName(userName).orElseThrow(null);
+    }
 }
