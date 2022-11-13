@@ -15,6 +15,7 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final CapsuleService capsuleService;
 
     public List<Board> findAll() {
         return boardRepository.findAll();
@@ -48,6 +49,14 @@ public class BoardService {
     public void delete(Long boardId) {
         Board board = findById(boardId);
         boardRepository.delete(board);
+    }
+
+    public void deleteByCapsule(Long capsuleId) {
+        Capsule capsule = capsuleService.findById(capsuleId);
+        List<Board> boardList = boardRepository.findByCapsule(capsule);
+        for(Board board : boardList){
+            boardRepository.delete(board);
+        }
     }
 
 }

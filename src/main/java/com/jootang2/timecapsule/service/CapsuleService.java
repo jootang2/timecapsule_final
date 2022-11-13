@@ -82,4 +82,13 @@ public class CapsuleService {
         capsule.setCapsuleAccessKey(code.toString());
         capsuleRepository.save(capsule);
     }
+
+    public void delete(Long capsuleId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        SiteUser user = userService.findByName(userName);
+        Capsule capsule = findById(capsuleId);
+        user.setNumberOfCapsule(user.getNumberOfCapsule()-1);
+        capsuleRepository.delete(capsule);
+    }
 }
