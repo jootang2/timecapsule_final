@@ -133,4 +133,10 @@ public class BoardController {
         return "redirect:/%d/board/detail/%d".formatted(capsuleId, boardId);
     }
 
+    @GetMapping("/delete/{boardId}")
+    public String boardDelete(@PathVariable Long boardId, @PathVariable Long capsuleId) {
+        boardService.delete(boardId);
+        return "redirect:/%d/board/list".formatted(capsuleId);
+    }
+
 }
