@@ -117,4 +117,20 @@ public class BoardController {
         return "redirect:/%d/board/list".formatted(capsuleId);
     }
 
+    @GetMapping("/update/{boardId}")
+    public String boardUpdate(@PathVariable Long boardId, @PathVariable Long capsuleId ,Model model, BoardDto boardDto) {
+        Capsule capsule = capsuleService.findById(capsuleId);
+        Board board = boardService.findById(boardId);
+        model.addAttribute("capsule", capsule);
+        model.addAttribute("board", board);
+
+        return "board/boardUpdateForm";
+    }
+
+    @PostMapping("/update/{boardId}")
+    public String boardUpdate(@PathVariable Long boardId,@PathVariable Long capsuleId, BoardDto boardDto) {
+        boardService.update(boardId, boardDto);
+        return "redirect:/%d/board/detail/%d".formatted(capsuleId, boardId);
+    }
+
 }

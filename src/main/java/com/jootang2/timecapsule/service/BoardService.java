@@ -37,4 +37,12 @@ public class BoardService {
         return board;
     }
 
+    public void update(Long boardId, BoardDto boardDto) {
+        Board board = findById(boardId);
+        board.setBoardCategory(boardDto.getBoardCategory());
+        board.setBoardTitle(boardDto.getBoardTitle());
+        board.setBoardContent(boardDto.getBoardContent());
+        boardRepository.save(board);
+    }
+
 }
