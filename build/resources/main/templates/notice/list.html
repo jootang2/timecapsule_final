@@ -1,0 +1,59 @@
+<head th:replace="layout/head.html :: head"></head>
+
+<div th:replace="layout/header.html :: header"></div>
+
+<body>
+
+<div class="hero page-inner overlay">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">공지사항</h1>
+
+                <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>분류</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>날짜</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div id="boardList" th:each="notice : ${noticeList}">
+                <tr>
+                    <td th:text="${notice.category}"></td>
+                    <td th:text="${notice.subject}"></td>
+                    <td>admin</td>
+                    <td th:text="${#strings.substring(notice.createdDate, 0, 10)}"></td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /.untree_co-section -->
+<div th:replace="layout/footer.html :: footer"></div>
+<script>
+    function storage() {
+        window.open(
+            "storage",
+            "Storage",
+            "width=400, height=300, top=50, left=50"
+        );
+    }
+</script>
+</body>
+</html>

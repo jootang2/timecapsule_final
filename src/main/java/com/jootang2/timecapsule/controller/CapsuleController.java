@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("capsule")
+@RequestMapping("/capsule")
 public class CapsuleController {
 
     private final CapsuleService capsuleService;
