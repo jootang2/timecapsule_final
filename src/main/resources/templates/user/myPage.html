@@ -1,0 +1,47 @@
+
+<head th:replace="layout/head.html :: head"></head>
+
+<div th:replace="layout/header.html :: header"></div>
+
+<body>
+<div class="hero page-inner overlay">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">마이페이지</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <div class="row">
+        <p th:text="${user.name}"></p>
+        <p th:text="${user.email}"></p>
+    </div>
+    <div th:each="capsule : ${capsuleList}">
+        <p>작성중인 캡슐</p>
+        <div th:if="${capsule.capsuleStatus == 'writing'}">
+            <p th:text="${capsule.capsuleTitle}"></p>
+        </div>
+        <p>묻은 캡슐</p>
+        <div th:if="${capsule.capsuleStatus == 'storage'}">
+            <p th:text="${capsule.capsuleTitle}"></p>
+        </div>
+        <p>완료된 캡슐</p>
+        <div th:if="${capsule.capsuleStatus == 'complete'}">
+            <p th:text="${capsule.capsuleTitle}"></p>
+        </div>
+
+        </div>
+
+    <button type="button" class="btn btn-link" onclick="location.href='/user/modifyPassword'">비밀번호 재설정</button>
+</div> <!-- /.untree_co-section -->
+
+<div th:replace="layout/footer.html :: footer"></div>
+
+
+</body>
+</html>

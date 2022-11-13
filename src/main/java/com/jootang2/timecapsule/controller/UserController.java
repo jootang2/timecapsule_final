@@ -1,9 +1,15 @@
 package com.jootang2.timecapsule.controller;
 
+import com.jootang2.timecapsule.domain.Capsule;
+import com.jootang2.timecapsule.domain.SiteUser;
 import com.jootang2.timecapsule.dto.UserDto;
+import com.jootang2.timecapsule.service.CapsuleService;
 import com.jootang2.timecapsule.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,6 +27,7 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+    private final CapsuleService capsuleService;
 
     @GetMapping("/join")
     public String join(UserDto userDto) {
@@ -78,5 +86,17 @@ public class UserController {
         String result = userService.resetUserPassword(userName, email);
         model.addAttribute("result", result);
         return "user/findPasswordResult";
+    }
+
+    @GetMapping("/myPage")
+    @PreAuthorize("isAuthenticated()")
+    public String myPage(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        SiteUser user = userService.findByName(userName);
+        List<Capsule> capsuleList = capsuleService.findByUser(user);
+        model.addAttribute("capsuleList", capsuleList);
+        model.addAttribute("user", user);
+        return "user/myPage";
     }
 }

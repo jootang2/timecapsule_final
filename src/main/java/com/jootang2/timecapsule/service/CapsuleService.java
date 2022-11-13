@@ -39,4 +39,9 @@ public class CapsuleService {
         return capsuleRepository.findAll();
     }
 
+    public List<Capsule> findByUser(SiteUser user) {
+        return capsuleRepository.findByUser(user);
+    }
+
+
 }
