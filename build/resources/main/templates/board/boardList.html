@@ -50,7 +50,7 @@
                         <td>
                             <a th:href="@{/{capsuleId}/board/detail/{boardId} (capsuleId = ${capsule.getId},boardId = ${board.getId})} "
                                th:text="${board.boardTitle}"></a></td>
-                        <td th:text="${board.getUser().userName}"></td>
+                        <td th:text="${board.getUser().name}"></td>
                         <td th:text="${#strings.substring(board.createdDate, 0, 10) + ' ' + #strings.substring(board.createdDate, 11, 16)}"></td>
                     </div>
                 </tr>
