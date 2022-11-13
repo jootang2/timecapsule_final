@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -53,6 +54,17 @@ public class BoardController {
         capsule = capsuleService.findById(capsuleId);
         boardService.create(boardDto, capsule, user);
         return "redirect:/%d/board/list".formatted(capsuleId);
+    }
+
+    @GetMapping("/detail/{boardId}")
+    public String boardDetail(@PathVariable Long boardId, @PathVariable Long capsuleId ,Model model, Principal principal) {
+        Board board = boardService.findById(boardId);
+        Capsule capsule = capsuleService.findById(capsuleId);
+        SiteUser user = userService.findByName(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("board", board);
+        model.addAttribute("capsule", capsule);
+        return "board/boardDetail";
     }
 
 }

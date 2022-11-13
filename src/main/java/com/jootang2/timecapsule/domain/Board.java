@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -41,4 +42,6 @@ public class Board extends BaseEntity {
     @JoinColumn(name = "USER_UUID")
     private SiteUser user;
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList;
 }

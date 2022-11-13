@@ -1,0 +1,113 @@
+<head th:replace="layout/head.html :: head"></head>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+<div th:replace="layout/header.html :: header"></div>
+<body>
+
+<div class="hero page-inner overlay">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">게시물 상세페이지</h1>
+
+                <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item "><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">TimeCapsule</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <div class="container">
+        <h1 th:text="${capsule.capsuleTitle}"></h1>
+        <input type="hidden" class="board-content" th:value="${board.boardContent}">
+        <table class="table">
+            <tbody>
+            <tr>
+                <th scope="row">분류</th>
+                <td th:text="${board.boardCategory}"></td>
+                <th scope="row">조회수</th>
+                <td>1</td>
+            </tr>
+            <tr>
+                <th scope="row">글쓴이</th>
+                <td th:text="${board.getUser().name}"></td>
+                <th scope="row">작성일</th>
+                <td th:text="${#strings.substring(board.createdDate, 0, 10) + ' ' + #strings.substring(board.createdDate, 11, 16)}"></td>
+            </tr>
+            <tr>
+                <th scope="row">제목</th>
+                <td th:text="${board.boardTitle}"></td>
+                <th scope="row">위치</th>
+                <td>
+                    <div th:if="${!board.placeX.isEmpty()}">
+                        <input type="hidden" id="placeX" th:value="${board.placeX}">
+                        <input type="hidden" id="placeY" th:value="${board.placeY}">
+                        <a href="/map/myStoragePlace" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">저장된 위치 보기</a>
+                    </div>
+                    <div th:if="${board.placeX.isEmpty()}">
+                        저장된 위치 없음
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+
+
+        </table>
+        <div class="text-dark" id="viewer"></div>
+        <hr>
+        <div th:if="${user == board.user}">
+            <a th:href="@{/{capsuleId}/board/update/{boardId} (capsuleId = ${capsule.getId},boardId = ${board.getId})} ">수정</a>
+            <a th:href="@{/{capsuleId}/board/delete/{boardId} (capsuleId = ${capsule.getId},boardId = ${board.getId})} ">삭제</a>
+        </div>
+
+
+        <form th:action="@{/comment/create/{boardId} (boardId = ${board.getId})}" method="post">
+            <textarea class="form-control" name="content" id="content" rows="2"></textarea>
+            <div class="text-lg-end">
+                <input class="float-right" type="submit" value="댓글입력">
+            </div>
+        </form>
+
+        <div>
+            <ul>
+                <div th:each="comment : ${board.commentList}">
+                    <h6 th:text="${comment.getUser().name}"></h6>
+                    <div class="meta"
+                         th:text="${#strings.substring(comment.updatedDate, 0, 10) + ' ' + #strings.substring(comment.updatedDate, 11, 16)}"></div>
+                    <p class="text-dark" th:text="${comment.content}"></p>
+                    <div th:if="${user == comment.getUser()}">
+                        <a th:href="@{/comment/delete/{boardId}/{commentId} (boardId = ${board.getId()}, commentId = ${comment.getId()})}">삭제</a>
+                        <a href="#" data-bs-toggle="collapse" th:data-bs-target="'#' + form +${comment.id}" aria-expanded="false" th:aria-controls="form +${comment.id}">수정</a>
+                        <div class="collapse" th:id="form +${comment.id}">
+                            <form th:id="updateForm +${comment.id}" th:action="@{/comment/update/{boardId}/{commentId} (boardId = ${board.getId}, commentId = ${comment.getId()})}" method="post">
+                            <textarea class="form-control" name="content" id="updateContent"
+                                      rows="2"></textarea>
+                                <button type="submit" th:form="updateForm +${comment.id}">수정</button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </ul>
+        </div>
+
+    </div>
+</div> <!-- /.untree_co-section -->
+<div th:replace="layout/footer.html :: footer"></div>
+<script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
+<script>
+    const viewer = toastui.Editor.factory({
+        el: document.querySelector('#viewer'),
+        initialValue: document.querySelector(".board-content").value,
+        viewer: true
+    });
+</script>
+</body>
+</html>
