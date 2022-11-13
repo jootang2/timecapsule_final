@@ -1,0 +1,40 @@
+<head th:replace="layout/head.html :: head"></head>
+
+<div th:replace="layout/header.html :: header"></div>
+
+<body>
+
+<div class="hero page-inner overlay">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">묻혀 있는 타임캡슐</h1>
+
+                <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">타임캡슐</li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">묻혀 있는 타임캡슐</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300" id="boardList"
+                 th:each="i : ${#numbers.sequence(capsuleList.size()-1, 0, -1)}" th:with="capsule=${capsuleList[i]}">
+                <div class="box-feature mb-4" th:if="${capsule.capsuleStatus == 'storage'}">
+                    <span class="flaticon-house mb-4 d-block"></span>
+                    <h3 class="text-black mb-3 font-weight-bold" th:text="${capsule.capsuleTitle}"></h3>
+                    <p class="text-black-50">타임캡슐 소개 글</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="layout/footer.html :: footer"></div>
+</body>
+</html>

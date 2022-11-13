@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CapsuleService {
@@ -32,4 +34,9 @@ public class CapsuleService {
         user.setNumberOfCapsule(user.getNumberOfCapsule()+1);
         capsuleRepository.save(capsule);
     }
+
+    public List<Capsule> findAll() {
+        return capsuleRepository.findAll();
+    }
+
 }
