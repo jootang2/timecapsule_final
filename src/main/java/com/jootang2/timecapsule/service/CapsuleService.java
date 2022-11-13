@@ -43,5 +43,8 @@ public class CapsuleService {
         return capsuleRepository.findByUser(user);
     }
 
+    public Capsule findById(Long capsuleId) {
+        return capsuleRepository.findById(capsuleId).orElseThrow(null);
+    }
 
 }
