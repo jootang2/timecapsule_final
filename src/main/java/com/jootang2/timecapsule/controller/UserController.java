@@ -3,6 +3,7 @@ package com.jootang2.timecapsule.controller;
 import com.jootang2.timecapsule.domain.Capsule;
 import com.jootang2.timecapsule.domain.SiteUser;
 import com.jootang2.timecapsule.dto.UserDto;
+import com.jootang2.timecapsule.dto.UserModifyPasswordDto;
 import com.jootang2.timecapsule.service.CapsuleService;
 import com.jootang2.timecapsule.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +30,7 @@ public class UserController {
 
     private final UserService userService;
     private final CapsuleService capsuleService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/join")
     public String join(UserDto userDto) {
@@ -98,5 +101,40 @@ public class UserController {
         model.addAttribute("capsuleList", capsuleList);
         model.addAttribute("user", user);
         return "user/myPage";
+    }
+
+    @GetMapping("/modifyPassword")
+    @PreAuthorize("isAuthenticated()")
+    public String modifyPassword(UserModifyPasswordDto userModifyPasswordDto) {
+        return "user/modifyPassword";
+    }
+
+    @PostMapping("/modifyPassword")
+    @PreAuthorize("isAuthenticated()")
+    public String modifyPassword(@Valid UserModifyPasswordDto userModifyPasswordDto, BindingResult bindingResult) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        SiteUser user = userService.findByName(userName);
+        System.out.println("userName = " + userName);
+        System.out.println("userModifyPasswordDto = " + userModifyPasswordDto.getOldPassword());
+        if (!passwordEncoder.matches(userModifyPasswordDto.getOldPassword(), user.getPassword())) {
+            bindingResult.rejectValue("oldPassword", "passwordIncorrect",
+                    "원래 비밀번호가 아닙니다.");
+            return "user/modifyPassword";
+        }
+        if (userModifyPasswordDto.getOldPassword().equals(userModifyPasswordDto.getPassword())) {
+            bindingResult.rejectValue("password", "samePassword",
+                    "원래 비밀번호와 동일한 비밀번호 입니다.");
+            return "user/modifyPassword";
+        }
+        if (!userModifyPasswordDto.getPassword().equals(userModifyPasswordDto.getPasswordConfirm())) {
+            bindingResult.rejectValue("passwordConfirm", "passWordInCorrect",
+                    "비밀번호가 일치하지 않습니다.");
+            return "user/modifyPassword";
+        }
+
+        userService.modifyPassword(user, userModifyPasswordDto.getPassword());
+
+        return "redirect:/user/logout";
     }
 }

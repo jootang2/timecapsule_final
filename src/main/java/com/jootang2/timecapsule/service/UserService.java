@@ -63,4 +63,9 @@ public class UserService {
     public SiteUser findByName(String userName) {
         return userRepository.findByName(userName).orElseThrow(null);
     }
+
+    public void modifyPassword(SiteUser user, String password) {
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+    }
 }
