@@ -43,14 +43,14 @@ public class MailService {
                         "<h3> 타임캡슐 이름 : " + capsule.getCapsuleTitle() + "</h3>\n" +
                         "<h3> 타임캡슐 생성 날짜 : " + capsule.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "</h3>\n" +
                         "<h3>한 줄 메세지 : " + capsule.getCapsuleMessage() + "</h3>\n" +
-                        "<a href=http://localhost:8080/"+capsule.getId()+"/board/password/"+capsule.getCapsuleAccessKey()+">TimeCapsule 보러가기</a>");
+                        "<a href=www.timecapsule.jootang2.com/"+capsule.getId()+"/board/password/"+capsule.getCapsuleAccessKey()+">TimeCapsule 보러가기</a>");
                 sb.append("</body></html>");
                 String str = sb.toString();
                 try {
                     MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
                     messageHelper.setSubject("TimeCapsule을 꺼내볼 시간입니다!");
                     messageHelper.setTo(capsule.getCapsuleToUserMail());
-                    messageHelper.setFrom("joohwan.song15b@gmail.com");
+                    messageHelper.setFrom("timecapsule.jootang2@gmail.com");
                     messageHelper.setText(str, true);
                     mailSender.send(mimeMessage);
                     System.out.println("지정된 시간에 메일 전송 완료");
@@ -66,7 +66,7 @@ public class MailService {
 
     public void sendPasswordEmail(String email, String newPassword) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("joohwan.song15b@gmail.com");
+        message.setFrom("timecapsule.song15b@gmail.com");
         message.setTo(email);
         message.setSubject("TimeCapsule 회원님의 임시 비밀번호입니다.");
         message.setText("임시비밀번호는 " + newPassword + " 입니다.\n" +
