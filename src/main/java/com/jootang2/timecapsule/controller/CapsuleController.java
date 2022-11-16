@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -44,14 +45,26 @@ public class CapsuleController {
     @GetMapping("/capsuleList/ing")
     public String CapsuleList(Model model) {
         List<Capsule> capsuleList = capsuleService.findAll();
-        model.addAttribute("capsuleList", capsuleList);
+        List<Capsule> writingCapsuleList = new ArrayList<>();
+        for(Capsule capsule : capsuleList){
+            if(capsule.getCapsuleStatus().equals("writing")){
+                writingCapsuleList.add(capsule);
+            }
+        }
+        model.addAttribute("writingCapsuleList", writingCapsuleList);
         return "capsule/capsuleList";
     }
 
     @GetMapping("/capsuleList/done")
     public String storageCapsuleList(Model model){
         List<Capsule> capsuleList = capsuleService.findAll();
-        model.addAttribute("capsuleList" , capsuleList);
+        List<Capsule> storageCapsuleList = new ArrayList<>();
+        for(Capsule capsule : capsuleList){
+            if(capsule.getCapsuleStatus().equals("storage")){
+                storageCapsuleList.add(capsule);
+            }
+        }
+        model.addAttribute("storageCapsuleList", storageCapsuleList);
         return "capsule/storageCapsuleList";
     }
 
