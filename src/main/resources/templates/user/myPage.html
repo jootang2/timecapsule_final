@@ -18,9 +18,10 @@
 <div class="section bg-light">
     <div class="container">
         <div class="row">
-            <p th:text="${user.name}"></p>
-            <p th:text="${user.email}"></p>
-            <p>작성중인 캡슐</p>
+            <h2 id="name" th:text="'ID : ' + ${user.name}"></h2>
+            <h2 id="email" th:text="'Email : ' + ${user.email}" style="margin-bottom: 50px"></h2>
+            <h2></h2>
+            <h5>작성중인 캡슐</h5>
             <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300"
                  th:each="i : ${#numbers.sequence(writingCapsuleList.size()-1, 0, -1)}"
                  th:with="capsule=${writingCapsuleList[i]}">
@@ -32,7 +33,7 @@
                         들어가기</a></p>
                 </div>
             </div>
-            <p>묻은 캡슐</p>
+            <h5>묻은 캡슐</h5>
             <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300"
                  th:each="i : ${#numbers.sequence(storageCapsuleList.size()-1, 0, -1)}"
                  th:with="capsule=${storageCapsuleList[i]}">
@@ -42,7 +43,7 @@
                     <p class="text-black-50" th:text="${capsule.capsuleSummary}"></p>
                 </div>
             </div>
-            <p>완료된 캡슐</p>
+            <h5>완료된 캡슐</h5>
             <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300"
                  th:each="i : ${#numbers.sequence(completeCapsuleList.size()-1, 0, -1)}"
                  th:with="capsule=${completeCapsuleList[i]}">
