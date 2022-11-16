@@ -1,4 +1,3 @@
-
 <head th:replace="layout/head.html :: head"></head>
 
 <div th:replace="layout/header.html :: header"></div>
@@ -16,29 +15,50 @@
 </div>
 
 
-<div class="section">
-    <div class="row">
-        <p th:text="${user.name}"></p>
-        <p th:text="${user.email}"></p>
+<div class="section bg-light">
+    <div class="container">
+        <div class="row">
+            <p th:text="${user.name}"></p>
+            <p th:text="${user.email}"></p>
+            <p>작성중인 캡슐</p>
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300"
+                 th:each="i : ${#numbers.sequence(writingCapsuleList.size()-1, 0, -1)}"
+                 th:with="capsule=${writingCapsuleList[i]}">
+                <div class="box-feature mb-4">
+                    <span class="flaticon-house mb-4 d-block"></span>
+                    <h3 class="text-black mb-3 font-weight-bold" th:text="${capsule.capsuleTitle}"></h3>
+                    <p class="text-black-50" th:text="${capsule.capsuleSummary}"></p>
+                    <p><a th:href="@{/{capsuleId}/board/list (capsuleId = ${capsule.id})}" class="learn-more">타임캡슐
+                        들어가기</a></p>
+                </div>
+            </div>
+            <p>묻은 캡슐</p>
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300"
+                 th:each="i : ${#numbers.sequence(storageCapsuleList.size()-1, 0, -1)}"
+                 th:with="capsule=${storageCapsuleList[i]}">
+                <div class="box-feature mb-4">
+                    <span class="flaticon-house mb-4 d-block"></span>
+                    <h3 class="text-black mb-3 font-weight-bold" th:text="${capsule.capsuleTitle}"></h3>
+                    <p class="text-black-50" th:text="${capsule.capsuleSummary}"></p>
+                </div>
+            </div>
+            <p>완료된 캡슐</p>
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300"
+                 th:each="i : ${#numbers.sequence(completeCapsuleList.size()-1, 0, -1)}"
+                 th:with="capsule=${completeCapsuleList[i]}">
+                <div class="box-feature mb-4">
+                    <span class="flaticon-house mb-4 d-block"></span>
+                    <h3 class="text-black mb-3 font-weight-bold" th:text="${capsule.capsuleTitle}"></h3>
+                    <p class="text-black-50" th:text="${capsule.capsuleSummary}"></p>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="location.href='/user/modifyPassword'">비밀번호 재설정
+            </button>
+        </div>
     </div>
-    <div th:each="capsule : ${capsuleList}">
-        <p>작성중인 캡슐</p>
-        <div th:if="${capsule.capsuleStatus == 'writing'}">
-            <p th:text="${capsule.capsuleTitle}"></p>
-        </div>
-        <p>묻은 캡슐</p>
-        <div th:if="${capsule.capsuleStatus == 'storage'}">
-            <p th:text="${capsule.capsuleTitle}"></p>
-        </div>
-        <p>완료된 캡슐</p>
-        <div th:if="${capsule.capsuleStatus == 'complete'}">
-            <p th:text="${capsule.capsuleTitle}"></p>
-        </div>
+</div>
 
-        </div>
-
-    <button type="button" class="btn btn-link" onclick="location.href='/user/modifyPassword'">비밀번호 재설정</button>
-</div> <!-- /.untree_co-section -->
+</div>
 
 <div th:replace="layout/footer.html :: footer"></div>
 

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -98,7 +99,23 @@ public class UserController {
         String userName = auth.getName();
         SiteUser user = userService.findByName(userName);
         List<Capsule> capsuleList = capsuleService.findByUser(user);
-        model.addAttribute("capsuleList", capsuleList);
+        List<Capsule> writingCapsuleList = new ArrayList<>();
+        List<Capsule> storageCapsuleList = new ArrayList<>();
+        List<Capsule> completeCapsuleList = new ArrayList<>();
+
+        for(Capsule capsule : capsuleList){
+            if(capsule.getCapsuleStatus().equals("writing")){
+                writingCapsuleList.add(capsule);
+            } else if(capsule.getCapsuleStatus().equals("storage")){
+                storageCapsuleList.add(capsule);
+            } else if(capsule.getCapsuleStatus().equals("complete")){
+                completeCapsuleList.add(capsule);
+            }
+        }
+
+        model.addAttribute("writingCapsuleList", writingCapsuleList);
+        model.addAttribute("storageCapsuleList", storageCapsuleList);
+        model.addAttribute("completeCapsuleList", completeCapsuleList);
         model.addAttribute("user", user);
         return "user/myPage";
     }
