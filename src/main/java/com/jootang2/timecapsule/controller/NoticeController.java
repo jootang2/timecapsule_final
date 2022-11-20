@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -21,5 +22,12 @@ public class NoticeController {
         List<Notice> noticeList = noticeService.findAll();
         model.addAttribute("noticeList", noticeList);
         return "notice/list";
+    }
+
+    @GetMapping("/detail/{noticeId}")
+    public String detail(@PathVariable Long noticeId, Model model){
+        Notice notice = noticeService.findById(noticeId);
+        model.addAttribute("notice", notice);
+        return "notice/detail";
     }
 }

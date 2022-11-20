@@ -36,7 +36,9 @@
             <div id="boardList" th:each="notice : ${noticeList}">
                 <tr>
                     <td th:text="${notice.category}"></td>
-                    <td th:text="${notice.subject}"></td>
+                    <td>
+                        <a th:href="@{/notice/detail/{noticeId} (noticeId = ${notice.getId})} "
+                           th:text="${notice.subject}"></a></td>
                     <td>admin</td>
                     <td th:text="${#strings.substring(notice.createdDate, 0, 10)}"></td>
                 </tr>

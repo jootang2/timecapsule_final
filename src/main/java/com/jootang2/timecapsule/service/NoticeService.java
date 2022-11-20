@@ -15,4 +15,8 @@ public class NoticeService {
     public List<Notice> findAll() {
         return noticeRepository.findAll();
     }
+
+    public Notice findById(Long noticeId) {
+        return noticeRepository.findById(noticeId).orElseThrow(null);
+    }
 }

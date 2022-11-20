@@ -1,0 +1,65 @@
+<head th:replace="layout/head.html :: head"></head>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+<div th:replace="layout/header.html :: header"></div>
+<body>
+
+<div class="hero page-inner overlay">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">공지사항</h1>
+
+                <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item "><a href="index.html">홈</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">공지사항</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <div class="container">
+        <input type="hidden" class="notice-content" th:value="${notice.content}">
+        <table class="table">
+            <tbody>
+            <tr>
+                <th scope="row">분류</th>
+                <td th:text="${notice.category}"></td>
+                <th scope="row">조회수</th>
+                <td>1</td>
+            </tr>
+            <tr>
+                <th scope="row">글쓴이</th>
+                <td th:text="admin"></td>
+                <th scope="row">작성일</th>
+                <td th:text="${#strings.substring(notice.createdDate, 0, 10) + ' ' + #strings.substring(notice.createdDate, 11, 16)}"></td>
+            </tr>
+            <tr>
+                <th scope="row">제목</th>
+                <td th:text="${notice.subject}"></td>
+                <th scope="row"></th>
+                <td></td>
+            </tr>
+            </tbody>
+
+
+        </table>
+        <div class="text-dark" id="viewer"></div>
+    </div>
+</div> <!-- /.untree_co-section -->
+<div th:replace="layout/footer.html :: footer"></div>
+<script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
+<script>
+    const viewer = toastui.Editor.factory({
+        el: document.querySelector('#viewer'),
+        initialValue: document.querySelector(".notice-content").value,
+        viewer: true
+    });
+</script>
+</body>
+</html>
