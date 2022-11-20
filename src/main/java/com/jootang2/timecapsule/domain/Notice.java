@@ -19,6 +19,6 @@ public class Notice extends BaseEntity{
     @Column(name = "NOTICE_SUBJECT")
     private String subject;
 
-    @Column(name = "NOTICE_CONTENT")
+    @Column(name = "NOTICE_CONTENT", columnDefinition = "TEXT")
     private String content;
 }
