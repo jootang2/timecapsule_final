@@ -24,7 +24,8 @@
 
 <div class="section">
     <div class="container">
-        <h1 th:text="${capsule.capsuleTitle}"></h1>
+        <h1 style="float: left" th:text="${capsule.capsuleTitle}"></h1>
+        <a style="float: right" class="btn btn-secondary btn-sm" th:href="@{/{capsuleId}/board/list (capsuleId = ${capsule.id})}">글 목록</a>
         <input type="hidden" class="board-content" th:value="${board.boardContent}">
         <table class="table">
             <tbody>
