@@ -28,6 +28,9 @@ public class Board extends BaseEntity {
     @Column(name = "BOARD_CONTENT", columnDefinition = "TEXT")
     private String boardContent;
 
+    @Column(name = "BOARD_HIT")
+    private Integer hit;
+
     @OneToOne
     @JoinColumn(name = "CAPSULE_ID")
     private Capsule capsule;

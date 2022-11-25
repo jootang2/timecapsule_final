@@ -21,4 +21,7 @@ public class Notice extends BaseEntity{
 
     @Column(name = "NOTICE_CONTENT", columnDefinition = "TEXT")
     private String content;
+
+    @Column(name = "NOTICE_HIT")
+    private Integer hit;
 }

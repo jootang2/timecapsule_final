@@ -27,6 +27,7 @@ public class NoticeController {
     @GetMapping("/detail/{noticeId}")
     public String detail(@PathVariable Long noticeId, Model model){
         Notice notice = noticeService.findById(noticeId);
+        noticeService.addHit(notice);
         model.addAttribute("notice", notice);
         return "notice/detail";
     }

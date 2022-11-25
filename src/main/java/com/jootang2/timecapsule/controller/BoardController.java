@@ -67,6 +67,7 @@ public class BoardController {
         Board board = boardService.findById(boardId);
         Capsule capsule = capsuleService.findById(capsuleId);
         SiteUser user = userService.findByName(principal.getName());
+        boardService.addHit(board);
         model.addAttribute("user", user);
         model.addAttribute("board", board);
         model.addAttribute("capsule", capsule);

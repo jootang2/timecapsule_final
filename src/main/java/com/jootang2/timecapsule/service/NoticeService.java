@@ -19,4 +19,10 @@ public class NoticeService {
     public Notice findById(Long noticeId) {
         return noticeRepository.findById(noticeId).orElseThrow(null);
     }
+
+    public void addHit(Notice notice) {
+        notice.setHit(notice.getHit()+1);
+        noticeRepository.save(notice);
+
+    }
 }

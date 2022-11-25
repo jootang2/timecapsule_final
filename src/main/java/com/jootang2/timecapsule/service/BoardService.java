@@ -30,6 +30,7 @@ public class BoardService {
         board.setBoardContent(boardDto.getBoardContent());
         board.setPlaceX(boardDto.getPlaceX());
         board.setPlaceY(boardDto.getPlaceY());
+        board.setHit(0);
         boardRepository.save(board);
     }
 
@@ -59,4 +60,11 @@ public class BoardService {
         }
     }
 
+    public void addHit(Board board) {
+        System.out.println("조회수 증가");
+        System.out.println(board.getHit());
+        board.setHit(board.getHit()+1);
+        boardRepository.save(board);
+        System.out.println(board.getHit());
+    }
 }
