@@ -9,6 +9,7 @@ import com.jootang2.timecapsule.service.BoardService;
 import com.jootang2.timecapsule.service.CapsuleService;
 import com.jootang2.timecapsule.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +30,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("{capsuleId}/board")
+@PreAuthorize("isAuthenticated()")
 public class BoardController {
 
     private final CapsuleService capsuleService;

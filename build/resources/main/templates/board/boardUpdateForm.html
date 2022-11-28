@@ -25,21 +25,27 @@
 
 <div class="section">
     <div class="container">
-    <h1>Create Form</h1>
+    <h1>글 수정하기</h1>
 
     <form name="form" th:action="@{/{capsuleId}/board/update/{boardId} (capsuleId = ${capsule.getId},boardId = ${board.id})}" method="post">
 
-    <select id="boardCategory" name="boardCategory">
-            <option value="">카테고리</option>
+    <select class="form-select-sm mb-3" id="boardCategory" name="boardCategory" th:value="${board.boardCategory}">
+            <option th:value="${board.boardCategory}" th:text="${board.boardCategory}"></option>
             <option th:each="category : ${T(com.jootang2.timecapsule.enumType.BoardCategory).values()}"
                     th:value="${category}"
                     th:text="${category}">
             </option>
         </select>
-        <input type="text" id="boardTitle" name="boardTitle">
-        <div id="editor"></div>
+        <input class="form-control col-lg-6 mb-3" type="text" id="boardTitle" name="boardTitle" th:value="${board.boardTitle}">
+        <div id="editor" class="mb-3"></div>
+        <div class="mb-3">
+            <a class="btn btn-outline-primary btn-sm mb-3" href="/map/myPlace" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">위치 등록</a>
+            <a class="btn btn-outline-primary btn-sm mb-3" href="/map/myStoragePlace" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">저장된 장소 보기</a>
+        </div>
         <input type="hidden" class="board-content" th:value="${board.boardContent}">
         <input type="hidden" class="editorContent" name="boardContent">
+        <input id="placeX" name="placeX" type="hidden" th:value="${board.placeX}">
+        <input id="placeY" name="placeY" type="hidden" th:value="${board.placeY}">
         <button type="button" th:onclick="validSubmit()">수정</button>
     </form>
     </div>
@@ -52,15 +58,34 @@
     const editor = new Editor({
         el: document.querySelector('#editor'),
         height: '500px',
+        initialEditType: 'markdown',
         initialValue: document.querySelector(".board-content").value,
-        previewStyle: 'vertical'
+        previewStyle: 'vertical',
+        hooks: {
+            addImageBlobHook: (image, callback) => {
+                const formData = new FormData();
+                formData.append('image', image);
+
+                fetch('/change/url', {
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(response => response.text())
+                    .then(url => callback(url, "대체 텍스트"));
+            }
+        }
     });
 
     editor.getMarkdown();
 
     function validSubmit() {
-        document.querySelector(".editorContent").value = editor.getMarkdown();
-        document.forms["form"].submit();
+        if($("#boardCategory").val().length==0){ alert("카테고리를 선택해주세요."); $("#boardCategory").focus(); return false; }
+        if($("#boardTitle").val().length==0){ alert("제목을 입력해주세요."); $("#boardTitle").focus(); return false; }
+        else{
+            document.querySelector(".editorContent").value = editor.getMarkdown();
+            document.forms["form"].submit();
+        }
+
     }
 </script>
 </body>

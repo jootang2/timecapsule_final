@@ -44,6 +44,8 @@ public class BoardService {
         board.setBoardCategory(boardDto.getBoardCategory());
         board.setBoardTitle(boardDto.getBoardTitle());
         board.setBoardContent(boardDto.getBoardContent());
+        board.setPlaceX(boardDto.getPlaceX());
+        board.setPlaceY(boardDto.getPlaceY());
         boardRepository.save(board);
     }
 
