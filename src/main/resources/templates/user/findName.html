@@ -1,15 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="layout/head.html :: head"></head>
+<div th:replace="layout/header.html :: header"></div>
+
 <body>
-    <form th:action="@{/user/findName}" th:object="${userDto}" method="post">
-        <input type="text" name="email" class="input input-bordered">
+<div class="hero page-inner overlay" style="background-image: url('images/hero_bg_1.jpg');">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">ID 찾기</h1>
+            </div>
         </div>
-        <button class="btn btn-success">ID 찾기</button>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                    <form th:action="@{/user/findName}" th:object="${userDto}" method="post">
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="email" class="form-label">등록 email</label>
+                                <input id="email" type="text" name="email" class="form-control">
+                            </div>
+                            <button class="btn btn-primary">ID 찾기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </form>
+    </div>
+</div> <!-- /.untree_co-section -->
+<div th:replace="layout/footer.html :: footer"></div>
 </body>
 </html>
