@@ -70,7 +70,7 @@ public class UserController {
 
     @GetMapping("/findName")
     public String findName() {
-        return "/user/findName";
+        return "user/findName";
     }
 
     @PostMapping("/findName")
