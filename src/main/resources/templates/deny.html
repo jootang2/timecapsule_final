@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>deny</title>
-</head>
-<body>
+<head th:replace="layout/head.html :: head"></head>
 
+<div th:replace="layout/header.html :: header"></div>
+
+<body>
+<div class="hero page-inner overlay" style="background-image: url('images/hero_bg_1.jpg');">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">잘못된 페이지</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <div class="container">
+        <div class="row text-center">
+            <h2>올바른 URL로 접속해주세요.</h2>
+        </div>
+    </div>
+</div> <!-- /.untree_co-section -->
+
+<div th:replace="layout/footer.html :: footer"></div>
 </body>
 </html>
