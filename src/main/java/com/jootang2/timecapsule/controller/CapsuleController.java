@@ -1,18 +1,20 @@
 package com.jootang2.timecapsule.controller;
 
 import com.jootang2.timecapsule.domain.Capsule;
+import com.jootang2.timecapsule.domain.SiteUser;
 import com.jootang2.timecapsule.dto.CapsuleDto;
 import com.jootang2.timecapsule.service.BoardService;
 import com.jootang2.timecapsule.service.CapsuleService;
+import com.jootang2.timecapsule.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class CapsuleController {
 
     private final CapsuleService capsuleService;
     private final BoardService boardService;
+    private final UserService userService;
 
     @GetMapping("/create")
     @PreAuthorize("isAuthenticated()")
@@ -67,6 +70,28 @@ public class CapsuleController {
         model.addAttribute("storageCapsuleList", storageCapsuleList);
         return "capsule/storageCapsuleList";
     }
+
+    @GetMapping("/findPassword/{capsuleId}")
+    @PreAuthorize("isAuthenticated()")
+    public String findCapsulePassword(@PathVariable Long capsuleId, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        SiteUser user = userService.findByName(userName);
+        Capsule capsule = capsuleService.findById(capsuleId);
+        model.addAttribute("capsule", capsule);
+        model.addAttribute("user", user);
+        return "capsule/findPassword";
+    }
+
+    @PostMapping("findPassword/{capsuleId}")
+    @PreAuthorize("isAuthenticated()")
+    public String findCapsulePassword(@PathVariable Long capsuleId, @RequestParam("newPassword") String newPassword){
+        Capsule capsule = capsuleService.findById(capsuleId);
+        capsuleService.setNewPassword(capsule, newPassword);
+        return "capsule/findPasswordResult";
+    }
+
+
 
     @PostMapping("/delete/{capsuleId}")
     @PreAuthorize("isAuthenticated()")

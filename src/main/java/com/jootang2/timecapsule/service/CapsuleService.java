@@ -91,4 +91,9 @@ public class CapsuleService {
         user.setNumberOfCapsule(user.getNumberOfCapsule()-1);
         capsuleRepository.delete(capsule);
     }
+
+    public void setNewPassword(Capsule capsule, String newPassword) {
+        capsule.setCapsulePassWord(passwordEncoder.encode(newPassword));
+        capsuleRepository.save(capsule);
+    }
 }

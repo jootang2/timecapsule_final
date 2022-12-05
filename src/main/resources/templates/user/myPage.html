@@ -31,6 +31,10 @@
                     <p class="text-black-50" th:text="${capsule.capsuleSummary}"></p>
                     <p><a th:href="@{/{capsuleId}/board/list (capsuleId = ${capsule.id})}" class="learn-more">타임캡슐
                         들어가기</a></p>
+                    <p><a href="#" class="learn-more"
+                          th:url="${capsule.id}"
+                          onclick="window.open('/capsule/findPassword/'+ this.getAttribute('url'),'window_name','width=430,height=500,location=no,status=no,scrollbars=yes'); return false;">비밀번호
+                        재설정</a></p>
                 </div>
             </div>
             <h5>묻은 캡슐</h5>
