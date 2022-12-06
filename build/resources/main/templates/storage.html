@@ -1,33 +1,73 @@
+<head th:replace="layout/head.html :: head" xmlns="http://www.w3.org/1999/html"></head>
+<div th:replace="layout/header.html :: header"></div>
 
 <body>
-<h1>타입캡슐 묻는 중 ...</h1>
-<form name="form" th:action="@{/{capsuleId}/board/storage (capsuleId = ${capsule.id}) }" method="post" onsubmit="sendMail()">
+<div class="hero page-inner overlay" style="background-image: url('images/hero_bg_1.jpg');">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">타입캡슐 묻는 중 ...</h1>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <table>
-        <tr>
-            <td>메일 주소</td>
-            <td>
-                <input type="text" name="capsuleToUserMail" placeholder="이메일 주소를 입력하세요">
-            </td>
-        </tr>
-        <tr>
-            <td>꺼내는 날짜</td>
-            <td>
-                <input type="date" name="capsuleReservationDate" th:min="${#temporals.createToday()}" max="9999-12-31">
-            </td>
-            <td>
-                <input type="time" name="capsuleReservationTime">
-            </td>
-        </tr>
-        <tr>
-            <td>한 줄 메세지</td>
-            <td>
-                <input type="text" name="capsuleMessage" placeholder="메세지를 입력하세요">
-            </td>
-        </tr>
-    </table>
-    <button>발송</button>
-</form>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                <div class="row">
+                    <form name="form" th:action="@{/{capsuleId}/board/storage (capsuleId = ${capsule.id}) }" method="post" onsubmit="sendMail()">
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="email" class="form-label">메일 주소</label>
+                                <input id="email" type="text" name="capsuleToUserMail" class="form-control">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="openDate" class="form-label">꺼내는 날짜</label>
+                                <input id="openDate" type="date" name="capsuleReservationDate" th:min="${#temporals.createToday()}" max="9999-12-31" class="form-control">
+                                <input type="time" name="capsuleReservationTime" class="form-control">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="message" class="form-label">한 줄 메세지</label>
+                                <input id="message" type="text" name="capsuleMessage" placeholder="메세지를 입력하세요" class="form-control">
+                            </div>
+                            <button class="btn btn-primary">발송</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- /.untree_co-section -->
+
+<!--<form name="form" th:action="@{/{capsuleId}/board/storage (capsuleId = ${capsule.id}) }" method="post" onsubmit="sendMail()">-->
+
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <td>메일 주소</td>-->
+<!--            <td>-->
+<!--                <input type="text" name="capsuleToUserMail" placeholder="이메일 주소를 입력하세요">-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>꺼내는 날짜</td>-->
+<!--            <td>-->
+<!--                <input type="date" name="capsuleReservationDate" th:min="${#temporals.createToday()}" max="9999-12-31">-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <input type="time" name="capsuleReservationTime">-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>한 줄 메세지</td>-->
+<!--            <td>-->
+<!--                <input type="text" name="capsuleMessage" placeholder="메세지를 입력하세요">-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--    <button>발송</button>-->
+<!--</form>-->
 <script>
     function sendMail(){
         document.form.target="hframe4";
@@ -36,6 +76,7 @@
         window.open('', '_self').close();
     }
 </script>
+<div th:replace="layout/footer.html :: footer"></div>
 </body>
 </html>
 

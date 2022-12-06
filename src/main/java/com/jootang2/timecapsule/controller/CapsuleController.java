@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,9 +87,12 @@ public class CapsuleController {
 
     @PostMapping("findPassword/{capsuleId}")
     @PreAuthorize("isAuthenticated()")
-    public String findCapsulePassword(@PathVariable Long capsuleId, @RequestParam("newPassword") String newPassword){
+    public String findCapsulePassword(@PathVariable Long capsuleId, @RequestParam("newPassword") String newPassword, HttpServletRequest request){
         Capsule capsule = capsuleService.findById(capsuleId);
         capsuleService.setNewPassword(capsule, newPassword);
+        HttpSession session = request.getSession();
+        session.removeAttribute("capsule" + capsuleId + "access");
+
         return "capsule/findPasswordResult";
     }
 

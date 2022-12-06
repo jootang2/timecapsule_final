@@ -80,6 +80,7 @@ public class CapsuleService {
         capsule.setCapsuleToUserMail(capsuleDto.getCapsuleToUserMail());
         capsule.setCapsuleMessage(capsuleDto.getCapsuleMessage());
         capsule.setCapsuleAccessKey(code.toString());
+        capsule.setCapsulePassWord(passwordEncoder.encode(code.toString()));
         capsuleRepository.save(capsule);
     }
 
